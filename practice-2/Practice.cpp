@@ -9,24 +9,6 @@
 
 using namespace llvm;
 
-// Регистрируем Pass :
-// Этот шаблонный класс используется для уведомления системы о том, что Pass доступен для использования,
-// и регистрирует его во внутренней базе данных, поддерживаемой PassManager. Если этот шаблон не используется, 
-// например, opt не сможет увидеть Pass, и попытки создать Pass не удастся.
-char Practice::ID = 0;
-static RegisterPass<Practice> X(
-    "practice",
-    "Practice Peephole Optimization Pass",
-    false,
-    false
-);
-
-// Это должно использоваться плагинами оптимизатора, чтобы позволить всем интерфейсам использовать их (Passes)
-static RegisterStandardPasses Y(
-    PassManagerBuilder::EP_EarlyAsPossible,
-    [](const PassManagerBuilder& builder, legacy::PassManagerBase& manager) { manager.add(new Practice()); }
-);
-
 namespace {
     struct Practice : public FunctionPass {
         static char ID;
@@ -91,3 +73,22 @@ namespace {
         }
     };
 }
+
+// Регистрируем Pass :
+// Этот шаблонный класс используется для уведомления системы о том, что Pass доступен для использования,
+// и регистрирует его во внутренней базе данных, поддерживаемой PassManager. Если этот шаблон не используется, 
+// например, opt не сможет увидеть Pass, и попытки создать Pass не удастся.
+char Practice::ID = 0;
+static RegisterPass<Practice> X(
+    "practice",
+    "Practice Peephole Optimization Pass",
+    false,
+    false
+);
+
+// Это должно использоваться плагинами оптимизатора, чтобы позволить всем интерфейсам использовать их (Passes)
+static RegisterStandardPasses Y(
+    PassManagerBuilder::EP_EarlyAsPossible,
+    [](const PassManagerBuilder& builder, legacy::PassManagerBase& manager) { manager.add(new Practice()); }
+);
+
