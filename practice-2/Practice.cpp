@@ -70,6 +70,11 @@ namespace {
             auto const& lhs = instruction->getOperand(0);
             auto const& rhs = instruction->getOperand(1);
             instruction->replaceAllUsesWith(isZero(lhs) ? rhs : lhs);
+            
+            // может имеет смысл заменить на это (но и с кодом выше работает)
+            // просто с extra проверкой
+            // auto const& lhs = instruction->getOperand(0);
+            // instruction->replaceAllUsesWith(lhs);
         }
     };
 }
