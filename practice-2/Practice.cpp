@@ -73,8 +73,9 @@ namespace {
             
             // может имеет смысл заменить на это (но и с кодом выше работает)
             // просто с extra проверкой
-            // auto const& lhs = instruction->getOperand(0);
+            // if(isZero(rhs)) {
             // instruction->replaceAllUsesWith(lhs);
+            // }
         }
     };
 }
