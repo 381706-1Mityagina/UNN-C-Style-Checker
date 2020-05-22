@@ -54,8 +54,8 @@ namespace {
         }
 
         bool isTrivial(Instruction const* instruction) const {
-            auto const& operands = instruction->operands();
-            return std::any_of(operands.begin(), operands.end(), [this](auto const& operand) { return isZero(operand); });
+            auto const& sec_operand = instruction->getOperand(1);
+            return isZero(sec_operand);
         }
 
         // check: является ли константой времени компиляции и = 0
